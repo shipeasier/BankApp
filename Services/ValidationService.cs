@@ -34,10 +34,6 @@ namespace BankApp.Services
                     {
                         list.Add(new Error("Error: Transcation Spike Detected " + item.Day + " " + item.Amount, transactions));
                     }
-                    
-                    // withdraw, else throw an error 
-                    // I think what we need to do is return the list of good transcations and then make em
-
                 }
             }
 
@@ -66,7 +62,7 @@ namespace BankApp.Services
 
             foreach (var item in predictions)
             {
-             //   var results = $"{item.Prediction[0]}\t{item.Prediction[1]:f2}\t{item.Prediction[2]:F2}";
+                //var results = $"{item.Prediction[0]}\t{item.Prediction[1]:f2}\t{item.Prediction[2]:F2}";
                 if (item.Prediction[0] == 1) // if alert is one
                 {
                     invalidTransactions.Add(transactionsList.Find(r => r.Amount == item.Prediction[1]));

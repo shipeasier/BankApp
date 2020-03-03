@@ -78,44 +78,6 @@ namespace BankApp
                 Console.Write(Environment.NewLine);
 
             }
-
-
-
-            //  accountServices.AIAssistedWithdraws(list, johnChkAct);
-
-
-
-
-
-
-
-
-
-            //for (int i = 0; i < bankOne.Accounts.Count; i++)
-            //{
-            //    List<Error> errList = (validationService.IsValid(500.00, bankOne.Accounts[i]));
-            //    if (errList.Count > 0)
-            //    {
-            //        foreach (var item in errList)
-            //        {
-            //            Console.WriteLine(item.Message);
-            //            Console.WriteLine(Environment.NewLine);
-            //            Console.WriteLine(accountServices.GetAccountInfo(bankOne.Accounts[i]));
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (bankOne.Accounts[i].Number == 11111333)
-            //        {
-            //            bankOne.Accounts[i] = accountServices.Withdrawal(500.00, bankOne.Accounts[i]);
-            //            Console.WriteLine(accountServices.GetAccountInfo(bankOne.Accounts[i]));
-            //            Console.Write(Environment.NewLine);
-            //        }
-            //    }
-            //}
-
-
-            //List<IAccount>
         }
 
 
