@@ -15,8 +15,8 @@ namespace BankApp.Services
 
         public List<Error> Errors = new List<Error>();
 
-        //public List<Error> IsValid(double? amount, IAccount account, List<Transactions> transactionsList = null)
-        public List<Error> IsValid(double amount, IAccount account)
+       public List<Error> IsValid(double? amount, IAccount account, List<Transactions> transactionsList = null)
+       // public List<Error> IsValid(double amount, IAccount account)
         {
             List<Error> list = new List<Error>();
 
@@ -25,24 +25,27 @@ namespace BankApp.Services
                 list.Add(new Error("Error: Individual Investment Accounts cannot withdraw more than $1,000 in a given transaction"));
             }
 
-            //if (transactionsList != null && transactionsList.Count > 0 && amount == null)
-            //{
+            if (transactionsList != null && transactionsList.Count > 0 && amount == null)
+            {
+                List<Transactions> transactions = AISpikeDetection(transactionsList, account);
+                if (transactions.Count > 0)
+                {
+                    foreach (var item in transactions)
+                    {
+                        list.Add(new Error("Error: Transcation Spike Detected " + item.Day + " " + item.Amount, transactions));
+                    }
+                    
+                    // withdraw, else throw an error 
+                    // I think what we need to do is return the list of good transcations and then make em
 
-            //    if (AISpikeDetection(transactionsList, account).Count > 0)
-            //    {
-
-            //        // withdraw, else throw an error 
-            //        // I think what we need to do is return the list of good transcations and then make em
-
-            //    }
-            //}
+                }
+            }
 
             return list;
         }
 
         public List<Transactions> AISpikeDetection(List<Transactions> transactionsList, IAccount account)
         {
-            Console.WriteLine(transactionsList.Count);
             MLContext mLContext = new MLContext();
             List<Transactions> invalidTransactions = new List<Transactions>();
             IDataView dataView = mLContext.Data.LoadFromEnumerable(transactionsList);
@@ -70,25 +73,26 @@ namespace BankApp.Services
                 }
                 //Console.WriteLine(results);
             }
+            return invalidTransactions;
+        }
 
-            // remove the invalid transactions
+        public List<Transactions> RemoveInvalidTransactions(List<Transactions> transactions, List<Transactions> invalidTransactions)
+        {
+            Console.WriteLine(transactions.Count);
+
+            // remove the invalid transactions // this should be a method
+            // then we'll do the withdraw
             if (invalidTransactions.Count > 0)
             {
                 foreach (var item in invalidTransactions)
                 {
                     Console.Write("removed invalid transaction ");
                     Console.WriteLine(item.Day + " " + item.Amount);
-                    transactionsList.RemoveAll(r => r.Amount == item.Amount);
+                    transactions.RemoveAll(r => r.Amount == item.Amount);
                 }
-
-
             }
-            //
-            Console.WriteLine(transactionsList.Count);
-            return transactionsList;
-;
+            return transactions;
         }
-
     }
 }
 

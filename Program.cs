@@ -45,8 +45,8 @@ namespace BankApp
 
         public static void AIWithdrawAnomalyDetectionExample()
         {
+            Console.WriteLine("Withdraw Example with AI assistance" + Environment.NewLine);
             AccountServices accountServices = new AccountServices();
-
             CorporateInvestment corporateInvestmentActOne = new CorporateInvestment(11111333, "Indiana State", 30050.25);
             // so i can do a bunch of withdraws and look for somethign goofy
             // i think it would be cool to have something wiht transfering account
@@ -56,9 +56,31 @@ namespace BankApp
             // lets give John Smith 35 grand
             accountServices.Deposit(35000.00, johnChkAct);
 
-
             var list = GetTransactionsList(johnChkAct);
             List<Error> errList = (validationService.IsValid(null, johnChkAct, list));
+            if (errList.Count > 0)
+            {
+                foreach (var item in errList)
+                {
+                    Console.WriteLine(item.Message);
+                    // clean up the invalids
+                    list = validationService.RemoveInvalidTransactions(list, item.Transactions);
+                    break;
+                }
+            }
+            // then we can do the withdraw :) :) :) :) 
+
+            foreach (var item in list)
+            {
+                // we need to change this  to look at transcation object
+                johnChkAct = accountServices.Withdrawal(item);
+                Console.WriteLine(accountServices.GetAccountInfo(johnChkAct));
+                Console.Write(Environment.NewLine);
+
+            }
+
+
+
             //  accountServices.AIAssistedWithdraws(list, johnChkAct);
 
 
@@ -68,7 +90,7 @@ namespace BankApp
 
 
 
-            //Console.WriteLine("Withdraw Example with AI assistance" + Environment.NewLine);
+
             //for (int i = 0; i < bankOne.Accounts.Count; i++)
             //{
             //    List<Error> errList = (validationService.IsValid(500.00, bankOne.Accounts[i]));

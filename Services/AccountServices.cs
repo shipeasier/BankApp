@@ -27,6 +27,18 @@ namespace BankApp
             return account;
         }
 
+        public IAccount Withdrawal(Transactions transactions)
+        {
+            var orgBalance = transactions.Account.Balance;
+            transactions.Account.Balance -= Convert.ToDouble(transactions.Amount);
+            if (transactions.Account.Balance < 0)
+            {
+                transactions.Account.Balance = orgBalance;
+                throw new Exception("Overdrafting account balances is not permitted");
+            }
+            return transactions.Account;
+        }
+
         public List<IAccount> Transfers(double amount, IAccount fromAccount, IAccount toAccount)
         {
             List<IAccount> accounts = new List<IAccount>();
