@@ -1,6 +1,7 @@
 ﻿using BankApp.Models;
 using BankApp.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace BankApp
@@ -13,31 +14,94 @@ namespace BankApp
         static AccountServices accountServices = new AccountServices();
         static void Main(string[] args)
         {
-            DisplayAllAccount();
+         //   DisplayAllAccount();
+         //   Console.WriteLine("==================================");
+         //   Console.WriteLine(Environment.NewLine);
+         //   DepositExample();
+         //   Console.WriteLine("==================================");
+         //   Console.WriteLine(Environment.NewLine);
+         //   WithDrawExample();
+         //   Console.WriteLine("==================================");
+         //   Console.WriteLine(Environment.NewLine);
+         //   WithDrawInvidualInvestmentExample();
+         //   Console.WriteLine("==================================");
+         //   Console.WriteLine(Environment.NewLine);
+         //   WithDrawOverDraftExample();
+         //   Console.WriteLine("==================================");
+         //   Console.WriteLine(Environment.NewLine);
+         //   TransferAccountExample();
+         //   Console.WriteLine("==================================");
+         //   Console.WriteLine(Environment.NewLine);
+            AIWithdrawAnomalyDetectionExample();
             Console.WriteLine("==================================");
             Console.WriteLine(Environment.NewLine);
-            DepositExample();
-            Console.WriteLine("==================================");
-            Console.WriteLine(Environment.NewLine);
-            WithDrawExample();
-            Console.WriteLine("==================================");
-            Console.WriteLine(Environment.NewLine);
-            WithDrawInvidualInvestmentExample();
-            Console.WriteLine("==================================");
-            Console.WriteLine(Environment.NewLine);
-            WithDrawOverDraftExample();
-            Console.WriteLine("==================================");
-            Console.WriteLine(Environment.NewLine);
-            TransferAccountExample();
-            Console.WriteLine("==================================");
-            Console.WriteLine(Environment.NewLine);
+
+
             Console.ReadLine();
+
+
+
         }
+
+        public static void AIWithdrawAnomalyDetectionExample()
+        {
+            AccountServices accountServices = new AccountServices();
+
+            CorporateInvestment corporateInvestmentActOne = new CorporateInvestment(11111333, "Indiana State", 30050.25);
+            // so i can do a bunch of withdraws and look for somethign goofy
+            // i think it would be cool to have something wiht transfering account
+            
+            // find john smith
+            var johnChkAct = bankOne.Accounts.Find(r => r.Number == 11111222);
+            // lets give John Smith 35 grand
+            accountServices.Deposit(35000.00, johnChkAct);
+
+
+            var list = GetTransactionsList(johnChkAct);
+            List<Error> errList = (validationService.IsValid(null, johnChkAct, list));
+            //  accountServices.AIAssistedWithdraws(list, johnChkAct);
+
+
+
+
+
+
+
+
+            //Console.WriteLine("Withdraw Example with AI assistance" + Environment.NewLine);
+            //for (int i = 0; i < bankOne.Accounts.Count; i++)
+            //{
+            //    List<Error> errList = (validationService.IsValid(500.00, bankOne.Accounts[i]));
+            //    if (errList.Count > 0)
+            //    {
+            //        foreach (var item in errList)
+            //        {
+            //            Console.WriteLine(item.Message);
+            //            Console.WriteLine(Environment.NewLine);
+            //            Console.WriteLine(accountServices.GetAccountInfo(bankOne.Accounts[i]));
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (bankOne.Accounts[i].Number == 11111333)
+            //        {
+            //            bankOne.Accounts[i] = accountServices.Withdrawal(500.00, bankOne.Accounts[i]);
+            //            Console.WriteLine(accountServices.GetAccountInfo(bankOne.Accounts[i]));
+            //            Console.Write(Environment.NewLine);
+            //        }
+            //    }
+            //}
+
+
+            //List<IAccount>
+        }
+
+
         public static Bank InitBankOne()
         {
             List<IAccount> bankOneAccounts = new List<IAccount>();
             Checking checkingActOne = new Checking(11111222, "John Smith", 2000.00);
-            CorporateInvestment corporateInvestmentActOne = new CorporateInvestment(11111333, "Indiana Interactive", 30050.25);
+            CorporateInvestment corporateInvestmentActOne = new CorporateInvestment(11111333, "Indiana State", 30050.25);
             IndividualInvestment individualInvestmentActOne = new IndividualInvestment(11111444, "John Smith", 800.00);
 
             bankOneAccounts.Add(checkingActOne);
@@ -208,6 +272,42 @@ namespace BankApp
                 }
             
         }
-    }
 
+        static List<Transactions> GetTransactionsList(IAccount account)
+        {
+            List<Transactions> transactionsList = new List<Transactions>();
+            transactionsList.Add(new Transactions("1 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("2 - Jan", 275.60f, account));
+            transactionsList.Add(new Transactions("3 - Jan", 272.50f, account));
+            transactionsList.Add(new Transactions("4 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("5 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("6 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("7 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("8 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("9 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("10 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("11 - Jan", 272.50f, account));
+            transactionsList.Add(new Transactions("12 - Jan", 277.50f, account));
+            transactionsList.Add(new Transactions("13 - Jan", 251.50f, account));
+            transactionsList.Add(new Transactions("14 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("15 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("16 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("17 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("18 - Jan", 279.50f, account));
+            transactionsList.Add(new Transactions("19 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("20 - Jan", 278.50f, account));
+            transactionsList.Add(new Transactions("21 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("22 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("23 - Jan", 500.50f, account));
+            transactionsList.Add(new Transactions("24 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("25 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("26 - Jan", 273.80f, account));
+            transactionsList.Add(new Transactions("27 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("28 - Jan", 274.60f, account));
+            transactionsList.Add(new Transactions("29 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("30 - Jan", 271.50f, account));
+            transactionsList.Add(new Transactions("31 - Jan", 271.50f, account));
+            return transactionsList;
+        }
+    }
 }

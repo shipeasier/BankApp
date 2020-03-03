@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.ML.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +11,7 @@ namespace BankApp
         public string Owner { get; set; }
         public string Type { get; set; }
         public double Balance { get; set; }
+
 
     }
 }
