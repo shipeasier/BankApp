@@ -32,7 +32,7 @@ namespace BankApp.Services
                 {
                     foreach (var item in transactions)
                     {
-                        list.Add(new Error("Error: Transcation Spike Detected " + item.Day + " " + item.Amount, transactions));
+                        list.Add(new Error("Error: Transaction Spike Detected", transactions));
                     }
                 }
             }
@@ -74,19 +74,17 @@ namespace BankApp.Services
 
         public List<Transactions> RemoveInvalidTransactions(List<Transactions> transactions, List<Transactions> invalidTransactions)
         {
-            Console.WriteLine(transactions.Count);
-
-            // remove the invalid transactions // this should be a method
-            // then we'll do the withdraw
             if (invalidTransactions.Count > 0)
             {
                 foreach (var item in invalidTransactions)
                 {
-                    Console.Write("removed invalid transaction ");
-                    Console.WriteLine(item.Day + " " + item.Amount);
+                    Console.Write("removed invalid transaction \t");
+                    Console.WriteLine(item.Day + "\t" + item.Amount + "\t" + item.Account.Number);
                     transactions.RemoveAll(r => r.Amount == item.Amount);
                 }
             }
+            Console.WriteLine("==================================");
+            Console.WriteLine(Environment.NewLine);
             return transactions;
         }
     }

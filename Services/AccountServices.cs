@@ -15,6 +15,12 @@ namespace BankApp
             return account;
         }
 
+        public IAccount Deposit(Transactions transactions)
+        {
+            transactions.Account.Balance += transactions.Amount;
+            return transactions.Account;
+        }
+
         public IAccount Withdrawal(double amount, IAccount account)
         {
             var orgBalance = account.Balance;
@@ -71,47 +77,5 @@ namespace BankApp
                 .Append("Balance: ").Append(account.Balance);
             return sb;
         }
-
-        //public IAccount AISpikeDetection(List<Transactions> transactionsList, IAccount account)
-        //{
-        //    MLContext mLContext = new MLContext();
-
-        //    IDataView dataView = mLContext.Data.LoadFromEnumerable(transactionsList);
-
-        //    // training algorithm
-        //    var abWithdrawTrainer = mLContext.Transforms.DetectIidSpike(outputColumnName: nameof(TransactionPrediction.Prediction), inputColumnName: nameof(Transactions.Amount), confidence: 99, pvalueHistoryLength: (36 / 4));
-
-        //    // create the transform, we need an empty dataset first
-        //    IEnumerable<Transactions> enumerableData = new List<Transactions>();
-        //    ITransformer transformer = abWithdrawTrainer.Fit((mLContext.Data.LoadFromEnumerable(enumerableData)));
-
-        //    // apply data transformation to create prediction
-        //    IDataView transformedData = transformer.Transform(dataView);
-
-        //    var predictions = mLContext.Data.CreateEnumerable<TransactionPrediction>(transformedData, reuseRowObject: false);
-
-        //    Console.WriteLine("Alert\tScore\tP-Value");
-
-        //    foreach (var item in predictions)
-        //    {
-
-        //        var results = $"{item.Prediction[0]}\t{item.Prediction[1]:f2}\t{item.Prediction[2]:F2}";
-        //        if (item.Prediction[0] == 1)
-        //        {
-                    
-        //            results += " <-- Spike detected, do not withdraw";
-        //        }
-        //        else
-        //        {
-        //            // do the withdraw
-        //        }
-        //        //Console.WriteLine(item.Prediction[0]);
-        //        //Console.WriteLine(val);
-        //        Console.WriteLine(results);
-        //    }
-
-
-        //    return null;
-        //}
     }
 }

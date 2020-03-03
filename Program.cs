@@ -14,10 +14,10 @@ namespace BankApp
         static AccountServices accountServices = new AccountServices();
         static void Main(string[] args)
         {
-         //   DisplayAllAccount();
-         //   Console.WriteLine("==================================");
-         //   Console.WriteLine(Environment.NewLine);
-         //   DepositExample();
+            DisplayAllAccount();
+            Console.WriteLine("==================================");
+            Console.WriteLine(Environment.NewLine);
+            DepositExample();
          //   Console.WriteLine("==================================");
          //   Console.WriteLine(Environment.NewLine);
          //   WithDrawExample();
