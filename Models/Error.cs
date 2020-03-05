@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankApp.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +7,9 @@ namespace BankApp.Models
 {
     class Error
     {
-        public Error(string message, List<Transactions> transactions = null)
+        public Error(ErrorNumber errorNumber, string message, List<Transactions> transactions = null)
         {
+            ErrorNumber = (long)errorNumber;
             Message = message;
             if (transactions != null && transactions.Count > 0)
             {
@@ -16,6 +18,6 @@ namespace BankApp.Models
         }
         public string Message { get; set; }
         public List<Transactions> Transactions { get; set; }
-
+        public long ErrorNumber { get; set; }
     }
 }

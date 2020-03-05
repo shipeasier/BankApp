@@ -1,4 +1,5 @@
-﻿using BankApp.Models;
+﻿using BankApp.Enums;
+using BankApp.Models;
 using BankApp.Services;
 using System;
 using System.Collections;
@@ -20,9 +21,9 @@ namespace BankApp
          //   DepositExample();
          //   Console.WriteLine("==================================");
          //   Console.WriteLine(Environment.NewLine);
-            WithDrawExample();
-            Console.WriteLine("==================================");
-            Console.WriteLine(Environment.NewLine);
+       //     WithDrawExample();
+       //     Console.WriteLine("==================================");
+        //    Console.WriteLine(Environment.NewLine);
          //   WithDrawInvidualInvestmentExample();
          //   Console.WriteLine("==================================");
          //   Console.WriteLine(Environment.NewLine);
@@ -32,9 +33,9 @@ namespace BankApp
          //   TransferAccountExample();
          //   Console.WriteLine("==================================");
          //   Console.WriteLine(Environment.NewLine);
-            //AIWithdrawAnomalyDetectionExample();
-            //Console.WriteLine("==================================");
-            //Console.WriteLine(Environment.NewLine);
+            AIWithdrawAnomalyDetectionExample();
+            Console.WriteLine("==================================");
+            Console.WriteLine(Environment.NewLine);
 
 
             Console.ReadLine();
@@ -48,8 +49,6 @@ namespace BankApp
             Console.WriteLine("Withdraw Example with AI assistance" + Environment.NewLine);
             AccountServices accountServices = new AccountServices();
             CorporateInvestment corporateInvestmentActOne = new CorporateInvestment(11111333, "Indiana State", 30050.25);
-            // so i can do a bunch of withdraws and look for somethign goofy
-            // i think it would be cool to have something wiht transfering account
             
             // find john smith
             var johnChkAct = bankOne.Accounts.Find(r => r.Number == 11111222);
@@ -62,10 +61,13 @@ namespace BankApp
             {
                 foreach (var item in errList)
                 {
-                    Console.WriteLine(item.Message);
-                    // clean up the invalids
-                    list = validationService.RemoveInvalidTransactions(list, item.Transactions);
-                    break;
+                    if (item.ErrorNumber == (long)ErrorNumber.TransactionSpike)
+                    {
+                        Console.WriteLine(item.Message);
+                        // clean up the invalids
+                        list = validationService.RemoveInvalidTransactions(list, item.Transactions);
+                        break;
+                    }
                 }
             }
             // then we can do the withdraw :) :) :) :) 
@@ -273,18 +275,18 @@ namespace BankApp
             transactionsList.Add(new Transactions("9 - Jan", 271.50f, account));
             transactionsList.Add(new Transactions("10 - Jan", 271.50f, account));
             transactionsList.Add(new Transactions("11 - Jan", 272.50f, account));
-            transactionsList.Add(new Transactions("12 - Jan", 277.50f, account));
-            transactionsList.Add(new Transactions("13 - Jan", 251.50f, account));
+            transactionsList.Add(new Transactions("12 - Jan", 277.50f, account)); // bad
+            transactionsList.Add(new Transactions("13 - Jan", 251.50f, account)); // bad
             transactionsList.Add(new Transactions("14 - Jan", 271.50f, account));
             transactionsList.Add(new Transactions("15 - Jan", 271.50f, account));
             transactionsList.Add(new Transactions("16 - Jan", 271.50f, account));
             transactionsList.Add(new Transactions("17 - Jan", 271.50f, account));
-            transactionsList.Add(new Transactions("18 - Jan", 279.50f, account));
+            transactionsList.Add(new Transactions("18 - Jan", 279.50f, account)); // bad
             transactionsList.Add(new Transactions("19 - Jan", 271.50f, account));
-            transactionsList.Add(new Transactions("20 - Jan", 278.50f, account));
+            transactionsList.Add(new Transactions("20 - Jan", 278.50f, account)); // bad
             transactionsList.Add(new Transactions("21 - Jan", 271.50f, account));
             transactionsList.Add(new Transactions("22 - Jan", 271.50f, account));
-            transactionsList.Add(new Transactions("23 - Jan", 500.50f, account));
+            transactionsList.Add(new Transactions("23 - Jan", 500.50f, account)); // bad
             transactionsList.Add(new Transactions("24 - Jan", 271.50f, account));
             transactionsList.Add(new Transactions("25 - Jan", 271.50f, account));
             transactionsList.Add(new Transactions("26 - Jan", 273.80f, account));

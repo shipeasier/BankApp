@@ -1,4 +1,5 @@
-﻿using BankApp.Models;
+﻿using BankApp.Enums;
+using BankApp.Models;
 using Microsoft.ML;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,12 @@ namespace BankApp.Services
         public List<Error> Errors = new List<Error>();
 
        public List<Error> IsValid(double? amount, IAccount account, List<Transactions> transactionsList = null)
-       // public List<Error> IsValid(double amount, IAccount account)
         {
             List<Error> list = new List<Error>();
 
             if (account.Type == "IndividualInvestment" && amount > 1000.00)
             {
-                list.Add(new Error("Error: Individual Investment Accounts cannot withdraw more than $1,000 in a given transaction"));
+                list.Add(new Error(ErrorNumber.IndividualInvestmentOverdraft, "Error: Individual Investment Accounts cannot withdraw more than $1,000 in a given transaction"));
             }
 
             if (transactionsList != null && transactionsList.Count > 0 && amount == null)
@@ -32,7 +32,7 @@ namespace BankApp.Services
                 {
                     foreach (var item in transactions)
                     {
-                        list.Add(new Error("Error: Transaction Spike Detected", transactions));
+                        list.Add(new Error(ErrorNumber.TransactionSpike ,"Error: Transaction Spike Detected", transactions));
                     }
                 }
             }
@@ -47,7 +47,7 @@ namespace BankApp.Services
             IDataView dataView = mLContext.Data.LoadFromEnumerable(transactionsList);
 
             // training algorithm
-            var abWithdrawTrainer = mLContext.Transforms.DetectIidSpike(outputColumnName: nameof(TransactionPrediction.Prediction), inputColumnName: nameof(Transactions.Amount), confidence: 99, pvalueHistoryLength: (36 / 4));
+            var abWithdrawTrainer = mLContext.Transforms.DetectIidSpike(outputColumnName: nameof(TransactionPrediction.Prediction), inputColumnName: nameof(Transactions.Amount), confidence: 75, pvalueHistoryLength: (36 / 4));
 
             // create the transform, we need an empty dataset first
             IEnumerable<Transactions> enumerableData = new List<Transactions>();
