@@ -36,7 +36,7 @@ namespace BankApp
         public IAccount Withdrawal(Transactions transactions)
         {
             var orgBalance = transactions.Account.Balance;
-            transactions.Account.Balance -= Convert.ToDouble(transactions.Amount);
+            transactions.Account.Balance -= transactions.Amount;
             if (transactions.Account.Balance < 0)
             {
                 transactions.Account.Balance = orgBalance;

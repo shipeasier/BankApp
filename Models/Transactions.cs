@@ -14,6 +14,12 @@ namespace BankApp.Models
             Amount = amount;
         }
 
+        public Transactions(float amount, IAccount account)
+        {
+            Amount = amount;
+            Account = account;
+        }
+
         [NoColumn]
         public IAccount Account { get; set; }
         [LoadColumn(0)]

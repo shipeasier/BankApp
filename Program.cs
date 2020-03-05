@@ -17,12 +17,12 @@ namespace BankApp
             DisplayAllAccount();
             Console.WriteLine("==================================");
             Console.WriteLine(Environment.NewLine);
-            DepositExample();
+         //   DepositExample();
          //   Console.WriteLine("==================================");
          //   Console.WriteLine(Environment.NewLine);
-         //   WithDrawExample();
-         //   Console.WriteLine("==================================");
-         //   Console.WriteLine(Environment.NewLine);
+            WithDrawExample();
+            Console.WriteLine("==================================");
+            Console.WriteLine(Environment.NewLine);
          //   WithDrawInvidualInvestmentExample();
          //   Console.WriteLine("==================================");
          //   Console.WriteLine(Environment.NewLine);
@@ -32,9 +32,9 @@ namespace BankApp
          //   TransferAccountExample();
          //   Console.WriteLine("==================================");
          //   Console.WriteLine(Environment.NewLine);
-            AIWithdrawAnomalyDetectionExample();
-            Console.WriteLine("==================================");
-            Console.WriteLine(Environment.NewLine);
+            //AIWithdrawAnomalyDetectionExample();
+            //Console.WriteLine("==================================");
+            //Console.WriteLine(Environment.NewLine);
 
 
             Console.ReadLine();
@@ -114,7 +114,8 @@ namespace BankApp
             {
                 if (bankOne.Accounts[i].Number == 11111222)
                 {
-                    bankOne.Accounts[i] = accountServices.Deposit(500.00, bankOne.Accounts[i]);
+                    //bankOne.Accounts[i] = accountServices.Deposit(500.00, bankOne.Accounts[i]);
+                    bankOne.Accounts[i] = accountServices.Deposit(new Transactions(500.00f, bankOne.Accounts[i]));
                     Console.WriteLine(accountServices.GetAccountInfo(bankOne.Accounts[i]));
                     Console.Write(Environment.NewLine);
                 }
@@ -140,7 +141,8 @@ namespace BankApp
                 {
                     if (bankOne.Accounts[i].Number == 11111333)
                     {
-                        bankOne.Accounts[i] = accountServices.Withdrawal(500.00, bankOne.Accounts[i]);
+                        //bankOne.Accounts[i] = accountServices.Withdrawal(500.00, bankOne.Accounts[i]);
+                        bankOne.Accounts[i] = accountServices.Withdrawal(new Transactions(500.00f, bankOne.Accounts[i]));
                         Console.WriteLine(accountServices.GetAccountInfo(bankOne.Accounts[i]));
                         Console.Write(Environment.NewLine);
                     }
