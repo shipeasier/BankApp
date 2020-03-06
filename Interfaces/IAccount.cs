@@ -11,7 +11,6 @@ namespace BankApp
         public string Owner { get; set; }
         public string Type { get; set; }
         public double Balance { get; set; }
-
-
+        public long TypeNumber { get; set; }
     }
 }

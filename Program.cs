@@ -24,9 +24,9 @@ namespace BankApp
        //     WithDrawExample();
        //     Console.WriteLine("==================================");
         //    Console.WriteLine(Environment.NewLine);
-         //   WithDrawInvidualInvestmentExample();
-         //   Console.WriteLine("==================================");
-         //   Console.WriteLine(Environment.NewLine);
+        //    WithDrawInvidualInvestmentExample();
+        //    Console.WriteLine("==================================");
+        //    Console.WriteLine(Environment.NewLine);
          //   WithDrawOverDraftExample();
          //   Console.WriteLine("==================================");
          //   Console.WriteLine(Environment.NewLine);

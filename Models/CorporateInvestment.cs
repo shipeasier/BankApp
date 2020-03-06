@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankApp.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,10 +13,12 @@ namespace BankApp
             Owner = owner;
             Balance = balance;
             Type = "CorporateInvestment";
+            TypeNumber = (long)AccountTypes.CorporateInvestment;
         }
         public int Number { get; set; }
         public string Owner { get; set; }
         public string Type { get; set; }
         public double Balance { get; set; }
+        public long TypeNumber { get; set; }
     }
 }

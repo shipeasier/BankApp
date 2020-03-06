@@ -20,7 +20,7 @@ namespace BankApp.Services
         {
             List<Error> list = new List<Error>();
 
-            if (account.Type == "IndividualInvestment" && amount > 1000.00)
+            if (account.TypeNumber == (long)AccountTypes.IndividualInvestment && amount > 1000.00)
             {
                 list.Add(new Error(ErrorNumber.IndividualInvestmentOverdraft, "Error: Individual Investment Accounts cannot withdraw more than $1,000 in a given transaction"));
             }
